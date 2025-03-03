@@ -71,4 +71,6 @@ int count_nodes(btree* root);
 // root plus however many keys are contained in valid child links.
 int count_keys(btree* root);
 
+bool contains(int arr[], int size, int target);
+
 #endif // BTREE_H__
