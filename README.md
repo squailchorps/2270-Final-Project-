@@ -89,7 +89,7 @@ We begin by calculating the middle of the y and x like we did for insert to see 
 
 To give a simple idea of the 4 quadrants, it would look something like this:
 
-![quadrants example](./images/samplequads.png)
+![quadrants example](./images/samplequads.PNG)
 
 From there, we can check to see if the points x is smaller than the midx we know the point is somewhere on the left, and if the points y is bigger than the midpoints y, then we know for sure the point is within the top left quadrant. To catch any times where the tree is a leaf and has no data within it, we return null since that means we have gone down the tree as far as it can go and it does not contain the point. If the top left tree is not null, then we know we can search this part of the tree ONLY and not have to search every other quadrant, just the ones where the mid points contain the point. WE would continue to call the search until we either find the point, or find nothing, at which point we return and exit the search.
 
