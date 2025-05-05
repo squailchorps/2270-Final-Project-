@@ -197,7 +197,7 @@ We have our original qtree with size (10,10):
 
 If we have points added to it randomly: 
 
-![quad tree with 10 random points](./images/quad with 10 points.png)
+![quad tree with 10 random points](./images/quad%20with%20points.png)
 
 Then we query inside with two boxes, wiht one box sized (1,8) for top left, and (6,3) for bottom right, and box two sized (3,9) for top left, and (8,6) for bottom left. 
 
