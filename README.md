@@ -80,7 +80,7 @@ With that, you should now be able to initalize the code and understand why the q
 
 ## Function Walk-Through
 
-In this section below, we will be going through the order in which they appear in the .h file. In order to view the actul implementation, please look at 'BTree.cpp'. 
+In this section, we will be going through the order in which they appear in the .h file. In order to view the actual implementation, please look at 'BTree.cpp'. This will list small high level comments as you go through it and show the code as you walkthrough each function. 
 
 ### Insert: 
 The insert function takes a node as an input that will be inserted into the tree. it will not have a return type. The function will first check if the node is real and has data. If it does not it will return and do nothing to the quad tree.
@@ -103,7 +103,7 @@ Since we are calling insert again, it is going to check each time, in each quadr
 
 This function was difficult to depict with visuals, so I apologize if this part was dense! 
 
-## Search: 
+### Search: 
 This function will search for a POINT within the given quad tree and return the node that the point coordinates are at. 
 
 First we do an in boundary check, which allows us to see if the point is within the boundary of the 4 quads of the quad tree. If it is not, we will return nothing, since we cannot find a node outside of the quadtree. 
@@ -120,15 +120,15 @@ To give a simple idea of the 4 quadrants, it would look something like this:
 
 From there, we can check to see if the points x is smaller than the midx we know the point is somewhere on the left, and if the points y is bigger than the midpoints y, then we know for sure the point is within the top left quadrant. To catch any times where the tree is a leaf and has no data within it, we return null since that means we have gone down the tree as far as it can go and it does not contain the point. If the top left tree is not null, then we know we can search this part of the tree ONLY and not have to search every other quadrant, just the ones where the mid points contain the point. WE would continue to call the search until we either find the point, or find nothing, at which point we return and exit the search.
 
-## In Boundary Check:
+### In Boundary Check:
 
 This simple function is a helper function for our major search and insert functions. All this does is compare the point to the bounds of the quad tree by accessing its top left and bottom right x and y values, and comparing them to the points x and y passed into the function to make sure they are within those bounds. If they are not, it will return false. Otherwise, it will return true! The reason this is a single line is that if ANY of the conditions of checking the x and y fails, we know the item has to be out of bounds. This makes the function very simple, while allowing for complete boundary checking! 
 
-## Initialize bounds of Quad Tree:
+### Initialize bounds of Quad Tree:
 
 I made this as I thought I would use it, but ended up just not using it due to being able to set the bounds when creating the quad tree. If the need arises that you need to change the bounds, you can utilize this to change the bounds by inputting the x and y for top left, and x and y for bottom right. This function will take your inputs and override the current points dedicated to top right and bottom left for the size of the tree. This will still allow all points to stay at their current bounds, but does not allow type changes. That menas we cant make the size a float, as it will break the quad tree. 
 
-## Subdivide: 
+### Subdivide: 
 This function is meant to subdivide a given quadtree by assigning pointers to new quad trees that are for the 4 quadrants of the quad tree. All this does is calculate the mid point, and then create new quadrants using the mid points of x and y, and the current top left through bottom right quadrants points. 
 
 To get more specific, I made this visual to understand for myself as I was calculating which points would go where to be able to reference as I go that is within the code. To make it a little more simplified i have placed the image again here for you to view as we go:
@@ -144,7 +144,7 @@ And lastly, the bottom right would be the mid x and mid y, with the bottom right
 
 This allows the creation of new quadtrees that are a quarter the size of the old tree. 
 
-## Print Tree:
+### Print Tree:
 Ironically, this function took the longest to make! I had to do a lot of research to understand how to simply print a tree without the ASCII graphics .h file, which proved difficult.
 
 This function just works as a way to visualize the quad tree by showing connections between all the parts, and allowing you to see where the children lead to! 
@@ -165,10 +165,10 @@ The implementation of this with a quad tree with points (2,4), (3,1), (3,3), (1,
 ![quad tree printed](./images/qtree%20printed.PNG)
 
 
-## Count Nodes:
+### Count Nodes:
 This is an easy function that returns an int with no input for a quad tree by recursively searching each tree, then returning the count. Each recursive call adds 1 to the count, so it allows us to search the entire tree and count every node that exists. This will count all nodes that exist within the bounds of the quad tree. This uses the same logic we have used in many other tree searches: Recurse through the tree and count 1 for each node. 
 
-## Range Search: 
+### Range Search: 
 This function has you entre in the top left and bottom right of a rectangle that you want to search within on the attached quad tree. This will not return anything, but add the points to a vector given, so that there is a list of points within the given range. 
 
 This will first check if the current bounds are within the range provided. If they aren’t, then we will just return and get out of this function, since this means the range is outside the trees bounds. 
@@ -182,21 +182,21 @@ This would look something like this visually within our 10/10 grid:
 ![range search example](./images/rectsearch.png)
 
 The points that would be given in the vector list would be (2,7), (3,4), (4,5), (5,3), and (5,7). Remember, we made this box by only needing to define the top left and bottom right! 
-## Rectangle Intersect:
+### Rectangle Intersect:
 This function takes the top left and bottom right of two separate rectangles on a grid and sees if they intersect. If they do intersect, it will show what points are within their intersection by adding those points to the given vector. 
 
 This first will just check to see if the two rectangles intersect. If they do not, we cannot find anything so we do nothing. 
 
 Otherwise, we are going to find the top left x and y and bottom right x and y of the intersection point by using min and max. This allows us to then create a new top left and bottom right point and then range search that box, which would then pushback the points to the vector within that intersection point! We get those points by calling rangesearch from the new coordinates we made and by putting the vector into the range search function that the rectintersect fucntiuon takes. And there we go! Since it does not have a return type, the vector will just have the new data added to it as the fucntion goes.
 
-## Intersect: 
+### Intersect: 
 This is a helper function that checks if points will intersect. This will return true if they do, and false otherwise. 
 
 This will start first with looking at the top of the box, by comparing the first boxes top left x point to the second boxes bottom left point. If it is greater, then it is NOT intersecting and we can return false. We then check to see if the first rectangles bottom right y is larger than the 2nd rectangles top left y, as well as the second rectangles bottom right y being greater than the first rectangles top left y. If any of these are true, that means no intersection. If they all return false, that means there MUST be an intersection, and so we return true.
 
 In essence, we are looking to see if a rectangle is to the left or right of the other with no overlap, and then if it is completely above or below the other with no overlap. If neither is true, then they must intersect! 
 
-## Contain:
+### Contain:
 This function is extremely similar to the in boundary check, but this time with custom points to utilize as a rectangle and a point to put in, rather than just checking 1 point against the quad tree.
 
 This will just see if the extremes of the box provided are larger than the point given. If they are, it returns true. If not, it returns false! 
