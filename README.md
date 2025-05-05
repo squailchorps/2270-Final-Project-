@@ -127,25 +127,9 @@ Otherwise, it means it MUST have a connection somewhere else, so it must have a 
 
 This will be done for every quadrant, and then calls the print tree at the end of each of the statements to dive down those trees. This builds out the tree in a nice readable format! 
 
-Thew implementation of this with a quad tree with points (2,4), (3,1), (3,3), (1,2), and (1,3) would look like this:
+Thew implementation of this with a quad tree with points (2,4), (3,1), (3,3), (1,2), and (1,3) would look like this: 
 
-node: Internal node
-├── Top Left:
-│   node: Internal node
-│   ├── Top Left:
-│   │   node: Leaf Node: Point(1,3) - data: 4
-│   ├── Top Right:
-│   │   node: Leaf Node: Point(2,4) - data: 0
-│   ├── Bottom Right:
-│   │   node: Internal node
-│   └── Bottom Left:
-│       node: Leaf Node: Point(1,2) - data: 3
-├── Top Right:
-│   node: Leaf Node: Point(3,3) - data: 2
-├── Bottom Right:
-│   node: Leaf Node: Point(3,1) - data: 1
-└── Bottom Left:
-    node: Internal node
+![quad tree printed](./images/qtree%printed.PNG)
 
 
 ## Count Nodes:
