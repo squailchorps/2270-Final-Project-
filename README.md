@@ -129,7 +129,7 @@ This will be done for every quadrant, and then calls the print tree at the end o
 
 Thew implementation of this with a quad tree with points (2,4), (3,1), (3,3), (1,2), and (1,3) would look like this: 
 
-![quad tree printed](./images/qtree printed.PNG)
+![quad tree printed](./images/qtree%20printed.PNG)
 
 
 ## Count Nodes:
@@ -187,7 +187,7 @@ If we have points added to it randomly:
 
 Then we query inside with two boxes, wiht one box sized (1,8) for top left, and (6,3) for bottom right, and box two sized (3,9) for top left, and (8,6) for bottom left. 
 
-![quad tree with 2 rect](./images/two rectangles.png)
+![quad tree with 2 rect](./images/two%20rectangles.png)
 
 The intersection area would be a rectangle with dimenssions of top left (3,8) and bottom right being (6,6). So within there is one point, which is (7,5)
 
