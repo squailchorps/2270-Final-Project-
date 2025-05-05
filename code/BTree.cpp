@@ -339,20 +339,3 @@ bool qtree::contain(point top_left, point bot_right, point p){
     return (p.x >= top_left.x && p.x <= bot_right.x 
            && p.y >= bot_right.y && p.y <= top_left.y);
 }
-//CHECK IN ON HOW TO HANDLE THE SAME POSITIONAL DATA,
-/* SKIP REMOVE, try and add the rectangles and see if the bonding boxes
-are colliding, or intersecting!
-
-to replace the data points with rectangles instead. 
-This would replace the point with a structure called rectangle, that would hold
-height and width, and x and y cordinates. 
-
-Once thats implemented, add a function that checks if there are boxes within a 
-given area. 
-
-I have a new system here: olcPixelGameEngine.h
-This will allow the visuals. However, it will be ASCII graphics,
-and I will need to learn it. That will be last if i have time. 
-*/
-
-

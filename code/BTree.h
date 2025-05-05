@@ -9,10 +9,9 @@
 using namespace std;
 
 // The QUADTREE_MAX_DEPTH definition sets the quad trees maximum depth. 
-// This ensures we do not have infinite recursion and to much processing power 
-// from a small data set. 
+// This was unused as I just made the structure below have 4 quadrants at each qtree creation.
 #define QUADTREE_MAX_DEPTH 4
-//The MAX_CHILDREN definition helps to keep the maximum children to 4 per node.
+//The MAX_CHILDREN definition helps to keep the maximum children to 4 per node. While unused, was a helpful reminder!
 #define MAX_CHILDREN 4
 
 //This is a point that stores the positional data of an item. 
@@ -38,12 +37,14 @@ struct node{
 
 //This constructor assigns data to 0 FIRST before the constructor runs.
 //while not really nessecary for this samll of a project, 
-//it is a great practice for future usage in my all classes! I learned about this
-//by looking at others code and wondering why it existed that way. 
+//it is a great practice for future usage in all my classes! I learned about this
+//by looking at others code and wondering why it existed that way, and found https://www.geeksforgeeks.org/when-do-we-use-initializer-list-in-c/ . 
   node() : data(0) {}
 };
 
-//i had originaly wanted to make rectangles, but ended up going with poitns instead using some range determination from x and y to make the rectangles. 
+//i had originaly wanted to make rectangles, but ended up going with poitns instead using some range determination from x and y to make the rectangles.
+//While using the rect would have been nice, it become difficult to wrap my head around. 
+// two points was already hard enough!  
 // struct rect{
 //   int x;
 //   int y;
@@ -56,15 +57,7 @@ struct node{
 //     this->w=w;
 //     this->h=h;
 //   }
-
-//   bool contains(point p) const {
-//     return (p.x >= x && p.x <= x + w && p.y >= y && p.y <= y + h);
-//   }
-
-//   bool intersects (const rect& range) const{
-//     return !(range.x > x + w || range.x + range.w < x || range.y > y + h || range.y + range.h < y);
-//   }
-// }
+//}
 
 class qtree{
 //the distance bounds for the nodes of this tree.
@@ -100,7 +93,7 @@ public:
 //if no node exists, returns NULL. 
   node* search(point);
 
-//This method will see if the current point is inside the quad tree. Will return true if it is within, false if not. 
+//Helper function. This method will see if the current point is inside the quad tree. Will return true if it is within, false if not. 
   bool inboundary(point);
 
 //used to initialize the bounds of the q tree.
