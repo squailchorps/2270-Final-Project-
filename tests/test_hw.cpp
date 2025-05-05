@@ -133,4 +133,6 @@ if (found_points.size() > 0){
 else{
   cout << "No overlap found." << endl;
 }
+
+cout << endl << endl;
 }

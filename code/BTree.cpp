@@ -284,14 +284,14 @@ void qtree::rangesearch(point range_topl, point range_botr, vector<point>& found
         return;
     }
 
-    //if the node has a point in it, add it to the vector list.
+    //if the node has a point in it, add it to the vector list we passed in.
     if (this->n != NULL){
         if(contain(range_topl,range_botr,n->pos)){
             found_points.push_back(n->pos);
         }
     }
 
-    //if the node has children, recurse into them until we reach NULL.
+    //if the node has children, recurse into them until we reach NULL (the end, in other words).
     if (this->topleft_tree != NULL){
         this->topleft_tree->rangesearch(range_topl,range_botr,found_points);
         this->topright_tree->rangesearch(range_topl,range_botr,found_points);

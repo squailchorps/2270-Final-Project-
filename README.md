@@ -79,7 +79,7 @@ Since we are calling insert again, it is going to check each time, in each quadr
 ## Search: 
 This function will search for a POINT within the given quad tree and return the node that the point coordinates are at. 
 
-First we do an in boundary check, which allows us to see if the point is within the boundary of the quad tree. If it is not, we will return nothing, since we cannot find a node outside of the quadtree. 
+First we do an in boundary check, which allows us to see if the point is within the boundary of the 4 quads of the quad tree. If it is not, we will return nothing, since we cannot find a node outside of the quadtree. 
 
 Then, the next if statement is a double check to see that the node is not empty, and that the positional data in the node is the same as the positional data from the given point. If it is, we have found our node and can close this function out by returning the node. 
 
@@ -87,11 +87,15 @@ From here, we start the actual function:
 
 We begin by calculating the middle of the y and x like we did for insert to see the quadrants. 
 
+To give a simple idea of the 4 quadrants, it would look something like this:
+
+![quadrants example](./images/samplequads.png)
+
 From there, we can check to see if the points x is smaller than the midx we know the point is somewhere on the left, and if the points y is bigger than the midpoints y, then we know for sure the point is within the top left quadrant. To catch any times where the tree is a leaf and has no data within it, we return null since that means we have gone down the tree as far as it can go and it does not contain the point. If the top left tree is not null, then we know we can search this part of the tree ONLY and not have to search every other quadrant, just the ones where the mid points contain the point. WE would continue to call the search until we either find the point, or find nothing, at which point we return and exit the search.
 
 ## In Boundary Check:
 
-This simple function is a helper function for our major search and insert functions. All this does is compare the point to the bounds of the quad tree by accessing its top left and bottom right x and y values, and comparing them to the point x and y make sure they are within those bounds. If they are not, it will return false. Otherwise, it will return false! 
+This simple function is a helper function for our major search and insert functions. All this does is compare the point to the bounds of the quad tree by accessing its top left and bottom right x and y values, and comparing them to the points x and y passed into the function to make sure they are within those bounds. If they are not, it will return false. Otherwise, it will return true! The reason this is a single line is that if ANY of the conditions of checking the x and y fails, we know the item has to be out of bounds. This makes the function very simple, while allowing for complete boundary checking! 
 
 ## Initialize bounds of Quad Tree:
 
@@ -100,7 +104,9 @@ I made this as I thought I would use it, but ended up just not using it due to b
 ## Subdivide: 
 This function is meant to subdivide a given quadtree by assigning pointers to new quad trees that are for the 4 quadrants of the quad tree. All this does is calculate the mid point, and then create new quadrants using the mid points of x and y, and the current top left through bottom right quadrants points. 
 
-To get more specific, I made this visual to understand for myself as I was calculating which points would go where to be able to reference as I go that is within the code. To make it a little more simplified here:
+To get more specific, I made this visual to understand for myself as I was calculating which points would go where to be able to reference as I go that is within the code. To make it a little more simplified i have placed the image again here for you to view as we go:
+
+![quadrants example](./images/samplequads.png)
 
 The new top left tree would be the old trees top left x and y value, with the midx and middy points. 
 
@@ -133,22 +139,23 @@ Thew implementation of this with a quad tree with points (2,4), (3,1), (3,3), (1
 
 
 ## Count Nodes:
-This is an easy function that returns an int with no input for a quad tree by recursively searching each tree, then returning the count. Each recursive call adds 1 to the count, so it allows us to search the entire tree and count every node that exists. This will count all nodes that exist within the bounds of the quad tree. 
+This is an easy function that returns an int with no input for a quad tree by recursively searching each tree, then returning the count. Each recursive call adds 1 to the count, so it allows us to search the entire tree and count every node that exists. This will count all nodes that exist within the bounds of the quad tree. This uses the same logic we have used in many other tree searches: Recurse through the tree and count 1 for each node. 
 
 ## Range Search: 
 This function has you entre in the top left and bottom right of a rectangle that you want to search within on the attached quad tree. This will not return anything, but add the points to a vector given, so that there is a list of points within the given range. 
 
-This will first check if the current bounded are within the range provided. If they aren’t, then we will just return and get out of this function, since this means the range is outside the trees bounds. 
+This will first check if the current bounds are within the range provided. If they aren’t, then we will just return and get out of this function, since this means the range is outside the trees bounds. 
 
 This will check if the current node contains a node with positional data. It checks to see if it is not null, and then uses contain to see if it is within those bounds. It just checks that the top right and bottom left of the range of the rectangle could have the point from this node within it. If it can, it is added to the list, if not it is not added. 
 
-From here, we go into ALL the children by searching the trees children. We look at this each time by checking the current nodes children by calling the range search all the way down. With our check above to see the intersect, if the bounding box is outside that child, it will return immediately so we aren’t just blinding checking everything. 
+From here, we go into ALL the children by searching the trees children. We look at this each time by checking the current nodes children by calling the range search all the way down. With our check above to see the intersect, if the bounding box is outside that child, it will return immediately so we aren’t just blinding checking everything. If it is inside, it will keep going down and down until it finds a point. This helps cut the time of searching by a lot!  
 
 ## Rectangle Intersect:
 This function takes the top left and bottom right of two separate rectangles on a grid and sees if they intersect. If they do intersect, it will show what points are within their intersection by adding those points to the given vector. 
+
 This first will just check to see if the two rectangles intersect. If they do not, we cannot find anything so we do nothing. 
 
-Otherwise, we are going to find the top left x and y and bottom right x and y of the intersection point by using min and max. This allows us to then create a new top left and bottom right point and then range search that box, which would then pushback the points to the vector within that intersection point!
+Otherwise, we are going to find the top left x and y and bottom right x and y of the intersection point by using min and max. This allows us to then create a new top left and bottom right point and then range search that box, which would then pushback the points to the vector within that intersection point! We get those points by calling rangesearch from the new coordinates we made and by putting the vector into the range search function that the rectintersect fucntiuon takes. And there we go! Since it does not have a return type, the vector will just have the new data added to it as the fucntion goes.
 
 ## Intersect: 
 This is a helper function that checks if points will intersect. This will return true if they do, and false otherwise. 
@@ -193,3 +200,6 @@ The intersection area would be a rectangle with dimenssions of top left (3,8) an
 
 The intersect would add only the points WITHIN  the bounds, and only the bounds of the new square. this would give an idea of how many nodes and points are within the intersected area! While this is not techincally showing the intersection, the program can detect that intersection and, had I had a little more time, could have quickly added a bool check to say if two squares were intersecting. While, technically this is that, and the helper function I made does that as well, I felt it would be better to show that I could recall the data just within the intersected area, rather than just saying if two shapes were interesecting. 
 
+# Run this yourself! 
+
+You should be able to downlaod the github repository, go into the build directory, and run "make && ./run_tests". This will at least out put whats in the current code, which is a quad tree of size 100x100, and insert 100 random points. As well, it should show you a rectangle intersection and a rectangle search! You may need to scroll up for all of it though, as the run tests still happens from our homeworks.
