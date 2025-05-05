@@ -10,7 +10,7 @@ A quad tree is a data structure that is like that of a btree with different inva
 2. All parents can have at max 4 children. 
 3. If the node is internal, it will always point to its child and the parent will hold no data.
 
-The specific type of quad tree I have made are regional quadtrees, which are the division of space equally into 4 parts.
+The specific type of quad tree I have made are regional quadtrees, which are the division of space equally into 4 parts. Each child represents a quarter of the parent, meaning we can begin to pinpoint areas quicker, rather than iterating over an entire space to find a single point, we only need to dive into the children that could contain that point. 
 
 ## Project Successes/Failures:
 
