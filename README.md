@@ -108,7 +108,7 @@ This function is meant to subdivide a given quadtree by assigning pointers to ne
 
 To get more specific, I made this visual to understand for myself as I was calculating which points would go where to be able to reference as I go that is within the code. To make it a little more simplified i have placed the image again here for you to view as we go:
 
-![quadrants example](./images/samplequads.png)
+![quadrants example](./images/samplequads.PNG)
 
 The new top left tree would be the old trees top left x and y value, with the midx and middy points. 
 
