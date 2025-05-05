@@ -34,6 +34,7 @@ One of my biggest hiccups as I want was trying to visualize spatial things insid
 #### 4.	Time:
 I spent a lot of time trying to understand the structure of a quad tree. The entire first week of the project was speant asking many many questions to others around me. I have two friends who both are CS majors, and they could not help me much. I spent at most aroudn 10 hours just trying to read through and understand waht was going on. It confused me for awhile on how the tree split, or why it split at all. I read numerous threads from a lengthy stack overflow post here: https://stackoverflow.com/questions/41946007/efficient-and-well-explained-implementation-of-a-quadtree-for-2d-collision-det?noredirect=1&lq=1 , to this awesome information here on geeks for geeks : https://www.geeksforgeeks.org/quad-tree/ . These are some examples that helped me understand the general idea of quad trees, but I struggled for so long on the why. My recovery from surgery as well as travel for work, meant my time was drastically cut from what I had hoped it to be. Given a few extra days, I believe I could have implemented a system to allow user input to check if two squares on a given grid were near each other and a simple UI.
 
+
 Over all, these 4 things led to me missing my goals. That does not mean I did a terrible job through this project and brought nothing! This project led to some amazing discoveries and learning opportunities, like:
 
 #### 1.	Points within space:
