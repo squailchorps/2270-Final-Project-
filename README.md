@@ -45,17 +45,38 @@ This project tested my abilities. I felt like I was struggling every step of the
 Given both my short comings and my gains throughout this project, I am very happy with how this went. I hope that what I have given is enough to show my growth throughout the semester! 
 
 
-## Explanation of each function within Project File:
+# Explanation of each function within Project File:
 
 I was unable to provide visuals from my code to showcase the properties, so below I have given descriptions with images I created to show how the code functions. This also goes in detail on how each part works, and examples of the functions results or usages. 
 
-### Inintalize a Qtree:
+## Quad Tree Structure:
+
+The quad tree has two structures that go along with it, a point structure and a node structure. The point structure is there only for its point tracking, which will hold two ints of x and y. We can use the points within the node structure, to give the nodes 2 dimensional coordinates, and as well a data type of our choice (in this case, just an integer). 
+
+From there we can create our quad tree class. The class consists of 2 points that are the positions of the top left and bottom right bounds of the root. This gives us our size parameter for all our data to be placed within. We have a node stcuture, which is a pointer to the location of the data. From here, we actually create 4 more quad trees that are pointers that allow us to define the 4 quadrants to our tree. Each is a pointer so you can change where it is pointing to and make it point to a smaller quad tree each time, rather than having to create brand new quad trees outside of the function. 
+
+All of this combined allows us to create a quad tree that utilizes positional data to create regions of space and have points inside that space! 
+
+## Inintalize a Qtree:
 To initalize a Qtree,  we would set a new variable and assgin it two points:
 qtree tree(point(0,10),point(10,0));
 The points are meant to represent the top left, and bottom right of the space. This menas the above quad tree initalization would give us a grid like this:
 ![quad tree setup](./images/basic%20quad.png)
 
 This quad tree implementation ASSUMES that all shapes and quad tree bounds are true rectangles/squares. This does not lalow for custom shapes with more or less than 4 dimensions. The two points passed in can allow us to make the bounds of the tree by taking the low side and high side of both points to calculate a shape from. 
+
+to initalize a node, you need a point and some data, so doing something like: 
+'node* n = new node(point(x,y),value);'
+will allow us to create  anode with points, and a value for its data.. (note: THERE HAS TO BE DATA, otherwise the node will be unable to initalize. The data can be repeated, but repeated x and y cordinates will fail in insertion.) In the above implementation, we are making a new node ontop of the heap to utilzie as we go in any part of the code, but also allow us to point to it directly should we need to. this also allows us to add it to the quad tree, as the quad tree needs pointer nodes as an input.
+
+To initalize a point, it is very simple: 
+'point rangesearchpoint1(0,50);'
+
+This will set the x and y to the proper positional data. You can also do it like this: 
+'point topleftbox_1 = point(0,20);'
+i have both implemented. I oringally had been doing it like this, but changed to doing the first version as it was more intuitive. There are still some versions like this inside of the code.
+
+With that, you should now be able to initalize the code and understand why the quad tree structure was made this way. Now we can discuss each function in detail below. In this section below, we will be going through the order in which they appear in the .h file. In order to view the actul implementation, please look at 'BTree.cpp'. 
 
 ### Insert: 
 The insert function takes a node as an input that will be inserted into the tree. it will not have a return type. The function will first check if the node is real and has data. If it does not it will return and do nothing to the quad tree.
