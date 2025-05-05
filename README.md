@@ -45,7 +45,7 @@ This project tested my abilities. I felt like I was struggling every step of the
 Given both my short comings and my gains throughout this project, I am very happy with how this went. I hope that what I have given is enough to show my growth throughout the semester! 
 
 
-# Explanation of each function within Project File:
+# Explanation of Data Structure Implementation:
 
 I was unable to provide visuals from my code to showcase the properties, so below I have given descriptions with images I created to show how the code functions. This also goes in detail on how each part works, and examples of the functions results or usages. 
 
@@ -57,7 +57,7 @@ From there we can create our quad tree class. The class consists of 2 points tha
 
 All of this combined allows us to create a quad tree that utilizes positional data to create regions of space and have points inside that space! 
 
-## Inintalize a Qtree:
+## Inintalizing a Qtree:
 To initalize a Qtree,  we would set a new variable and assgin it two points:
 qtree tree(point(0,10),point(10,0));
 The points are meant to represent the top left, and bottom right of the space. This menas the above quad tree initalization would give us a grid like this:
@@ -76,7 +76,11 @@ This will set the x and y to the proper positional data. You can also do it like
 'point topleftbox_1 = point(0,20);'
 i have both implemented. I oringally had been doing it like this, but changed to doing the first version as it was more intuitive. There are still some versions like this inside of the code.
 
-With that, you should now be able to initalize the code and understand why the quad tree structure was made this way. Now we can discuss each function in detail below. In this section below, we will be going through the order in which they appear in the .h file. In order to view the actul implementation, please look at 'BTree.cpp'. 
+With that, you should now be able to initalize the code and understand why the quad tree structure was made this way. Now we can discuss each function in detail below. 
+
+## Function Walk-Through
+
+In this section below, we will be going through the order in which they appear in the .h file. In order to view the actul implementation, please look at 'BTree.cpp'. 
 
 ### Insert: 
 The insert function takes a node as an input that will be inserted into the tree. it will not have a return type. The function will first check if the node is real and has data. If it does not it will return and do nothing to the quad tree.
