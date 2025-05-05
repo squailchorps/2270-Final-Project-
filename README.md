@@ -55,7 +55,7 @@ qtree tree(point(0,10),point(10,0));
 The points are meant to represent the top left, and bottom right of the space. This menas the above quad tree initalization would give us a grid like this:
 ![quad tree setup](./images/basic%20quad.png)
 
-
+This quad tree implementation ASSUMES that all shapes and quad tree bounds are true rectangles/squares. This does not lalow for custom shapes with more or less than 4 dimensions. The two points passed in can allow us to make the bounds of the tree by taking the low side and high side of both points to calculate a shape from. 
 
 ### Insert: 
 The insert function takes a node as an input that will be inserted into the tree. it will not have a return type. The function will first check if the node is real and has data. If it does not it will return and do nothing to the quad tree.
@@ -75,6 +75,8 @@ Once we have found the specific quadrant our data should go to, we call insert o
 Finally, once we have subdivided, we can insert the new point. However, we will perform the same checks to see what area it would go into. We would check to see if it is in the left half, and then in the top half, and if both are tree then it is in the top left half, just like our arguments from before, only instead of at the end inserting this->n, we insert the node now (called node).
 
 Since we are calling insert again, it is going to check each time, in each quadrant, until it finds that the current quadrant is a leaf node and will insert there. Thus, completing the insert sequence. 
+
+This function was difficult to depict with visuals, so I apologize if this part was dense! 
 
 ## Search: 
 This function will search for a POINT within the given quad tree and return the node that the point coordinates are at. 
@@ -99,7 +101,7 @@ This simple function is a helper function for our major search and insert functi
 
 ## Initialize bounds of Quad Tree:
 
-I made this as I thought I would use it, but ended up just not using it due to being able to set the bounds when creating the quad tree. If the need arises that you need to change the bounds, you can utilize this to change the bounds by inputting the x and y for top left, and x and y for bottom right. 
+I made this as I thought I would use it, but ended up just not using it due to being able to set the bounds when creating the quad tree. If the need arises that you need to change the bounds, you can utilize this to change the bounds by inputting the x and y for top left, and x and y for bottom right. This function will take your inputs and override the current points dedicated to top right and bottom left for the size of the tree. This will still allow all points to stay at their current bounds, but does not allow type changes. That menas we cant make the size a float, as it will break the quad tree. 
 
 ## Subdivide: 
 This function is meant to subdivide a given quadtree by assigning pointers to new quad trees that are for the 4 quadrants of the quad tree. All this does is calculate the mid point, and then create new quadrants using the mid points of x and y, and the current top left through bottom right quadrants points. 
@@ -150,6 +152,11 @@ This will check if the current node contains a node with positional data. It che
 
 From here, we go into ALL the children by searching the trees children. We look at this each time by checking the current nodes children by calling the range search all the way down. With our check above to see the intersect, if the bounding box is outside that child, it will return immediately so we aren’t just blinding checking everything. If it is inside, it will keep going down and down until it finds a point. This helps cut the time of searching by a lot!  
 
+This would look something like this visually within our 10/10 grid: 
+
+![range search example](./images/rectsearch.png)
+
+The points that would be given in the vector list would be (2,7), (3,4), (4,5), (5,3), and (5,7). Remember, we made this box by only needing to define the top left and bottom right! 
 ## Rectangle Intersect:
 This function takes the top left and bottom right of two separate rectangles on a grid and sees if they intersect. If they do intersect, it will show what points are within their intersection by adding those points to the given vector. 
 
