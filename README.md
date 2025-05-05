@@ -135,7 +135,7 @@ Otherwise, it means it MUST have a connection somewhere else, so it must have a 
 
 This will be done for every quadrant, and then calls the print tree at the end of each of the statements to dive down those trees. This builds out the tree in a nice readable format! 
 
-Thew implementation of this with a quad tree with points (2,4), (3,1), (3,3), (1,2), and (1,3) would look like this: 
+The implementation of this with a quad tree with points (2,4), (3,1), (3,3), (1,2), and (1,3) would look like this: 
 
 ![quad tree printed](./images/qtree%20printed.PNG)
 
