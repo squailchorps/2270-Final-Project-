@@ -233,7 +233,7 @@ Then we query inside with two boxes, wiht one box sized (1,8) for top left, and 
 
 ![quad tree with 2 rect](./images/two%20rectangles.png)
 
-The intersection area would be a rectangle with dimenssions of top left (3,8) and bottom right being (6,6). So within there is one point, which is (7,5)
+The intersection area would be a rectangle with dimenssions of top left (3,8) and bottom right being (6,6). So within there is one point, which is (7,5).
 
 The intersect would add only the points WITHIN  the bounds, and only the bounds of the new square. this would give an idea of how many nodes and points are within the intersected area! While this is not techincally showing the intersection, the program can detect that intersection and, had I had a little more time, could have quickly added a bool check to say if two squares were intersecting. While, technically this is that, and the helper function I made does that as well, I felt it would be better to show that I could recall the data just within the intersected area, rather than just saying if two shapes were interesecting. 
 
