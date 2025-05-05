@@ -18,6 +18,7 @@ Some small notes before I get into this portion:
 1. I could not figure out how to change the names of the files without breaking the entire program. Each time I changed it, cmake would fail and i would be stuck. I ended up reverting and it ended up working, so just know that the files are titled btree, but it is definitely NOT a btree.
 2. The only files I edited are under code folder, and under the tests folder. I ended up not making a main file for this and just utlized the test function. 
 3. The olcPixelGameEngine.h is not used.
+4. I could have made the tests actual functions. Since they only relied on one thing, it would not have been difficult to add it directly into the functions or make them their own seperate helper functions. 
 
 When I set out on this project, I had originally wanted to make a game that could utilize the quad tree for collision detection. As the items get closer and closer, each check could see how far they were from one another, and once they overlapped, that would allow me to do something within the game through events. However, a number of issues popped up as I went.
 
@@ -57,7 +58,7 @@ The points are meant to represent the top left, and bottom right of the space. T
 
 
 ### Insert: 
-The insert function takes a node as an input that will be inserted into the tree. The function will first check if the node is real and has data. If it does not it will return and do nothing to the quad tree.
+The insert function takes a node as an input that will be inserted into the tree. it will not have a return type. The function will first check if the node is real and has data. If it does not it will return and do nothing to the quad tree.
 
 Next, The function will make sure that the node is within the boundary of the quad tree the function is being used on. If not, it will then return nothing since it cannot add anything to a space that does not exist. 
 
@@ -126,10 +127,29 @@ Otherwise, it means it MUST have a connection somewhere else, so it must have a 
 
 This will be done for every quadrant, and then calls the print tree at the end of each of the statements to dive down those trees. This builds out the tree in a nice readable format! 
 
-My original creation of this used a depth counter to walk through the tree and add indentations at each level of the recursion (pass in both depth and a prefix, usually just " "). The depth would always add a space meaning it would delinate between layers by just those spaces. This was no where near as pretty, so I saw many other people using connectors like I show above, and decided to try and write my own! 
+Thew implementation of this with a quad tree with points (2,4), (3,1), (3,3), (1,2), and (1,3) would look like this:
+
+node: Internal node
+├── Top Left:
+│   node: Internal node
+│   ├── Top Left:
+│   │   node: Leaf Node: Point(1,3) - data: 4
+│   ├── Top Right:
+│   │   node: Leaf Node: Point(2,4) - data: 0
+│   ├── Bottom Right:
+│   │   node: Internal node
+│   └── Bottom Left:
+│       node: Leaf Node: Point(1,2) - data: 3
+├── Top Right:
+│   node: Leaf Node: Point(3,3) - data: 2
+├── Bottom Right:
+│   node: Leaf Node: Point(3,1) - data: 1
+└── Bottom Left:
+    node: Internal node
+
 
 ## Count Nodes:
-This is an easy function that returns an int with no input for a quad tree by recursively searching each tree, then returning the count. Each recursive call adds 1 to the count, so it allows us to search the entire tree and count every node that exists. 
+This is an easy function that returns an int with no input for a quad tree by recursively searching each tree, then returning the count. Each recursive call adds 1 to the count, so it allows us to search the entire tree and count every node that exists. This will count all nodes that exist within the bounds of the quad tree. 
 
 ## Range Search: 
 This function has you entre in the top left and bottom right of a rectangle that you want to search within on the attached quad tree. This will not return anything, but add the points to a vector given, so that there is a list of points within the given range. 
@@ -170,3 +190,22 @@ I also have it print out every node that is being inserted, allowing you to see 
 There is also the custom range search that allows you to put in the box size you want to search the tree for. This will output those points to a list and print those out at the end. If you want to change the search range, change lines 98 and 99. 
 
 Lastly, I have a rectangle search check to see if two rectangles are intersecting and to provide the points that are within that intersection. To change those, modify lines 115-118! 
+
+A really coll thing is to show what the intersect would do: 
+
+We have our original qtree with size (10,10):
+
+![quad tree setup](./images/basic%20quad.png)
+
+If we have points added to it randomly: 
+
+![quad tree with 10 random points](./images/quad%with%10%points.png)
+
+Then we query inside with two boxes, wiht one box sized (1,8) for top left, and (6,3) for bottom right, and box two sized (3,9) for top left, and (8,6) for bottom left. 
+
+![quad tree with 2 rect](./images/two%rectangles.png)
+
+The intersection area would be a rectangle with dimenssions of top left (3,8) and bottom right being (6,6). So within there is one point, which is (7,5)
+
+The intersect would add only the points WITHIN  the bounds, and only the bounds of the new square. this would give an idea of how many nodes and points are within the intersected area! While this is not techincally showing the intersection, the program can detect that intersection and, had I had a little more time, could have quickly added a bool check to say if two squares were intersecting. While, technically this is that, and the helper function I made does that as well, I felt it would be better to show that I could recall the data just within the intersected area, rather than just saying if two shapes were interesecting. 
+

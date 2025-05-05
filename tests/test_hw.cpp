@@ -114,11 +114,11 @@ TEST_F(test_BTree, CountNodes) {
   tree.rectintersect(topleftbox_1, botrightbox_1, topleftbox_2, botrightbox_2,found_points);
   cout<< "Checking 2 bounding boxes with given points " 
   << "(" << topleftbox_1.x << "," << topleftbox_1.y << "), " 
-  << "(" << botrightbox_1.x << "," << botrightbox_1.y << "), " <<
-  "for rectangle 1 and "
+  << "(" << botrightbox_1.x << "," << botrightbox_1.y << "), " 
+  << "for rectangle 1 and "
   << "(" << topleftbox_2.x << "," << topleftbox_2.y << "), "
-  << "(" << botrightbox_2.x << "," << botrightbox_2.y << "), " << 
-  "for rectangle 2." << endl;
+  << "(" << botrightbox_2.x << "," << botrightbox_2.y << "), " 
+  << "for rectangle 2." << endl;
 
 if (found_points.size() > 0){
  cout << "rectangles overlap, printing cordinates within bounds: " << endl;
